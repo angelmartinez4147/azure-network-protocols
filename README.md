@@ -29,7 +29,7 @@ Observe the following
 - RDP Traffic
 <h2>Actions and Observations</h2>
 
-To first set up this lab I created two Virtual Machines(VMs) within Azure that were on the same virtual network to ensure that the two VMs could communicate with one another. One VM was created with Windows 10 while the other was created with Linux(Ubuntu). Using command line/PowerShell I will connect the Ubuntu VM to the Windows VM.
+To first set up this lab I created two Virtual Machines(VMs) within Azure that were on the same virtual network to ensure that the two VMs could communicate with one another. One VM was created with Windows 10 while the other was created with Linux(Ubuntu). Using the command line/PowerShell I will connect the Ubuntu VM to the Windows VM.
 
 <p>
 <img width="700" alt="Screen Shot 2023-07-23 at 1 05 48 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/548f7728-5f6c-4ff2-88e6-774ee8d1e6a3">
@@ -52,9 +52,9 @@ starting up Wireshark I see a lot of traffic flood the screen from there I will 
 <img width="700" alt="Screen Shot 2023-07-23 at 1 15 42 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/ad145a1e-431f-41c6-a032-0f97cc151b72">
 </p>
 <p>
-I used a perpetual ping to the Ubuntu VM in order to see how network security groups work. I activated the perpetual ping by using the command: ping -t (ip address). This caused Wireshark to be spammed with icmp traffic so to counteract that I enter Azure portal and open the networking settings for the Ubuntu VM and created a new inbound port rule to deny all icmp traffic while also setting the priority above all preset inbound port rule. 
+I used a perpetual ping to the Ubuntu VM in order to see how network security groups work. I activated the perpetual ping by using the command: ping -t (IP address). This caused Wireshark to be spammed with ICMP traffic so to counteract that I enter Azure portal and open the networking settings for the Ubuntu VM and created a new inbound port rule to deny all icmp traffic while also setting the priority above all preset inbound port rules. 
 
-Returning to the Windows VM I will see the ping in Powershell reply with "request timed out" assuring that the new inbound port rule is working. Heading back to Azure portal I will switch the port rule to allow the icmp traffic once again and I will see the traffic coming from the Ubuntu VM on the Windows VM. To exit the perpetual Ping within Powershell I will just click Control C to stop all communication.  
+Returning to the Windows VM I will see the ping in Powershell reply with "request timed out" assuring that the new inbound port rule is working. Heading back to Azure portal I will switch the port rule to allow the ICMP traffic once again and I will see the traffic coming from the Ubuntu VM on the Windows VM. To exit the perpetual Ping within Powershell I will just click Control C to stop all communication.  
 </p>
 <br />
 
@@ -62,7 +62,7 @@ Returning to the Windows VM I will see the ping in Powershell reply with "reques
 <img width="700" alt="Screen Shot 2023-07-23 at 1 22 33 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/b20fab88-31a6-4732-8411-1aa273c1b37a">
 </p>
 <p>
-Next, I will observe SSH traffic. On Wireshark I will filter for ssh traffic by using tcp.port==22 no traffic will be shown at the moment. Entering Powershell I will log in to the Ubuntu VM by using the command ssh@(username ip address). SSH traffic will start to be shown on Wireshark and with each command I use within the Powershell Ubuntu VM ssh connection the more ssh traffic that can be observed. I once again close the command with "control c".
+Next, I will observe SSH traffic. On Wireshark I will filter for ssh traffic by using tcp.port == 22 no traffic will be shown at the moment. Entering Powershell I will log in to the Ubuntu VM by using the command ssh@(username IP address). SSH traffic will start to be shown on Wireshark and with each command I use within the Powershell Ubuntu VM ssh connection the more ssh traffic that can be observed. I once again close the command with "control c".
 </p>
 <br />
 
@@ -70,7 +70,7 @@ Next, I will observe SSH traffic. On Wireshark I will filter for ssh traffic by 
 <img width="700" alt="Screen Shot 2023-07-23 at 1 25 15 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/21dbc726-2b1c-42cc-8390-566e5460fb4b">
 </p>
 <p>
-I then moved on to examine dhcp traffic. To observe this traffic I used the command ipconfig /renew on Powershell to issue the Window VM a new IP address. This command may result in losing connection to the VM for a brief second but once back in I will be able to observe the resulting traffic.
+I then moved on to examine DHCP traffic. To observe this traffic I used the command ipconfig /renew on Powershell to issue the Window VM a new IP address. This command may result in losing connection to the VM for a brief second but once back in I will be able to observe the resulting traffic.
 </p>
 <br />
 
@@ -78,7 +78,7 @@ I then moved on to examine dhcp traffic. To observe this traffic I used the comm
 <img width="700" alt="Screen Shot 2023-07-23 at 1 26 56 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/5666f834-a61f-420f-8e34-fbbcb60e02e5">
 </p>
 <p>
-After observing dhcp traffic I wanted to examine dns so by typing udp.port == 53 into the filter I will only be able to see the dns traffic on Wireshark. And to see dns traffic I'll utilize the nslookup command on Powershell to look up the ip address of popular sites like google.com and disney.com.
+After observing DHCP traffic I wanted to examine DNS so by typing udp.port == 53 into the filter I will only be able to see the DNS traffic on Wireshark. And to see DNS traffic I'll utilize the nslookup command on Powershell to look up the IP address of popular sites like google.com and disney.com.
 </p>
 <br />
 
@@ -86,6 +86,6 @@ After observing dhcp traffic I wanted to examine dns so by typing udp.port == 53
 <img width="700" alt="Screen Shot 2023-07-23 at 1 28 46 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/8b9ea2bb-af59-443a-8e00-fd8ff74c104d">
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+lastly, I decided to observe RDP traffic to finish off my lab. By typing tcp.port == 3389 into the filter for rdp traffic I will start to see Wireshark be flooded with non-stop traffic. The reasoning behind this is that the RDP protocol is showing a constant live stream from the Windows VM computer to my computer as a result traffic is always being used and transmitted. 
 </p>
 <br />
