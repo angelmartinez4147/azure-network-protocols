@@ -89,3 +89,6 @@ After observing DHCP traffic I wanted to examine DNS so by typing udp.port == 53
 lastly, I decided to observe RDP traffic to finish off my lab. By typing tcp.port == 3389 into the filter for rdp traffic I will start to see Wireshark be flooded with non-stop traffic. The reasoning behind this is that the RDP protocol is showing a constant live stream from the Windows VM computer to my computer as a result traffic is always being used and transmitted. 
 </p>
 <br />
+
+<h2>Lessons Learned </h2>
+With this lab, I learned how to filter and observe the different ports and protocols that are used in a network between devices. This lab is a very useful guide on how to use the tools like the different ports and protocols in Wireshark and PowerShell to gather information. Repeating this lab will give me the basic tools and knowledge that I can carry throughout my IT career.
