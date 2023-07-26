@@ -70,7 +70,7 @@ Next, I will observe SSH traffic. On Wireshark I will filter for ssh traffic by 
 <img width="700" alt="Screen Shot 2023-07-23 at 1 25 15 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/21dbc726-2b1c-42cc-8390-566e5460fb4b">
 </p>
 <p>
-I then moved on to examine dhcp traffic. With the filter udp.port==53 I will only be able to see the dhcp traffic on Wireshark. To observe this traffic I used the command ipconfig /renew on Powershell to issue the Window VM a new IP address. This command my result in losing connection to the VM for a brief second but once back in I will be able to observe the resulting traffic.
+I then moved on to examine dhcp traffic. To observe this traffic I used the command ipconfig /renew on Powershell to issue the Window VM a new IP address. This command may result in losing connection to the VM for a brief second but once back in I will be able to observe the resulting traffic.
 </p>
 <br />
 
@@ -78,7 +78,7 @@ I then moved on to examine dhcp traffic. With the filter udp.port==53 I will onl
 <img width="700" alt="Screen Shot 2023-07-23 at 1 26 56 PM" src="https://github.com/angelmartinez4147/azure-network-protocols/assets/131706484/5666f834-a61f-420f-8e34-fbbcb60e02e5">
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+After observing dhcp traffic I wanted to examine dns so by typing udp.port == 53 into the filter I will only be able to see the dns traffic on Wireshark. And to see dns traffic I'll utilize the nslookup command on Powershell to look up the ip address of popular sites like google.com and disney.com.
 </p>
 <br />
 
